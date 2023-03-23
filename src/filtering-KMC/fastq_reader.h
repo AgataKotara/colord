@@ -17,7 +17,6 @@
 #include <iostream>
 
 #include "zlib.h"
-#include "libs/bzlib.h"
 
 using namespace std;
 
@@ -26,8 +25,7 @@ using namespace std;
 //************************************************************************************************************
 class CFastqReaderDataSrc
 {
-	z_stream stream;	
-	bz_stream _bz_stram;
+	z_stream stream;
 	uchar* in_buffer;
 	CBinaryPackQueue* binary_pack_queue;
 	CMemoryPool *pmm_binary_file_reader;
@@ -61,9 +59,6 @@ public:
 			break;
 		case CompressionType::gzip:
 			inflateEnd(&stream);
-			break;
-		case CompressionType::bzip2:
-			BZ2_bzDecompressEnd(&_bz_stram);
 			break;
 		default:
 			break;

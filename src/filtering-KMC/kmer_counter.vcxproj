@@ -192,8 +192,6 @@
     <ClInclude Include="kmc.h" />
     <ClInclude Include="kmer.h" />
     <ClInclude Include="kxmer_set.h" />
-    <ClInclude Include="libs\bzlib.h" />
-    <ClInclude Include="libs\bzlib_private.h" />
     <ClInclude Include="mem_disk_file.h" />
     <ClInclude Include="meta_oper.h" />
     <ClInclude Include="mmer.h" />
@@ -266,9 +264,6 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Library Include="libs\libbzip2.lib" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

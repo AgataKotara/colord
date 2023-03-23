@@ -71,8 +71,7 @@ else
 	LIB_ZLIB = $(SRC)/../common/libs/zlib/libz.a
 	LIBS = \
 	$(SRC)/../common/libs/zlib/libz.a \
-	$(SRC)/libs/count_kmers/libfiltering_kmc.a \
-	$(SRC)/libs/count_kmers/libbz2.a
+	$(SRC)/libs/count_kmers/libfiltering_kmc.a
 
 	LIB_FILTERING_KMC = $(SRC)/libs/count_kmers/libfiltering_kmc.a
 endif

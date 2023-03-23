@@ -87,12 +87,6 @@
     <ClInclude Include="bkb_writer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="libs\bzlib.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="libs\bzlib_private.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="cpu_info.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -192,9 +186,6 @@
     <ClInclude Include="filtering_kmc.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <Library Include="libs\libbzip2.lib" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header Files">
