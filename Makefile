@@ -11,12 +11,12 @@ ifeq ($(UNAME_S),Darwin)
 	CLINK_KMC = -lm -fopenmp -static-libgcc -static-libstdc++ -O3 -pthread -std=c++11
 
 else
-	CXX = g++
-	CFLAGS = -Wall -O3 -std=c++17 -lstdc++fs -lpthread -fsanitize=address
-	CLINK = -Wall -O3 -std=c++17 -lstdc++fs -lpthread -fsanitize=address	
+	CXX = clang++ -g
+	CFLAGS = -Wall -O3 -std=c++17 -lstdc++fs -lpthread -fsanitize=leak -fsanitize-coverage=trace-pc-guard
+	CLINK = -Wall -O3  -std=c++17 -lstdc++fs -lpthread -fsanitize=leak -fsanitize-coverage=trace-pc-guard
 
-	CFLAGS_KMC = -Wall -O3 -m64 -lpthread -std=c++11 -fsanitize=address
-	CLINK_KMC = -lm -O3 -lpthread -std=c++11 -fsanitize=address
+	CFLAGS_KMC = -Wall -O3 -m64 -lpthread -std=c++11 -fsanitize=leak -fsanitize-coverage=trace-pc-guard
+	CLINK_KMC = -lm -O3 -lpthread -std=c++11 -fsanitize=leak -fsanitize-coverage=trace-pc-guard
 endif
 
 BIN_DIR = bin
@@ -57,7 +57,7 @@ $(SRC)/reference_genome.o
 COBJS = \
 $(SRC)/libs/md5/md5.o
 
-MIMALLOC_OBJ=$(SRC)/libs/mimalloc/mimalloc.o
+
 
 ifeq ($(UNAME_S),Darwin)
 	LIB_ZLIB = $(SRC)/../common/libs/zlib/libz.mac.a
@@ -78,11 +78,10 @@ endif
 
 all: $(BIN_DIR)/colord $(BIN_DIR)/libcolord_api.a $(BIN_DIR)/api_example
 
-$(MIMALLOC_OBJ):
-	$(CXX) -DMI_MALLOC_OVERRIDE -O3 -DNDEBUG -fPIC -Wall -Wextra -Wno-unknown-pragmas -fvisibility=hidden -ftls-model=initial-exec -fno-builtin-malloc -c -I $(SRC)/libs/mimalloc/include $(SRC)/libs/mimalloc/src/static.c -o $(MIMALLOC_OBJ)
 
 
-$(BIN_DIR)/colord: $(MIMALLOC_OBJ) $(OBJS) $(COBJS) $(OBJS_COMMON) $(LIB_FILTERING_KMC)
+
+$(BIN_DIR)/colord: $(OBJS) $(COBJS) $(OBJS_COMMON) $(LIB_FILTERING_KMC)
 	-mkdir -p $(BIN_DIR)
 	$(CXX) $(CLINK) -o $@ $^ $(LIBS)
 
