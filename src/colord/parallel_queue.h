@@ -253,7 +253,7 @@ class CParallelQueuePopWaiting
 	bool is_completed = false;	
 	uint32_t start = 0;
 	uint32_t end = 0;
-	std::mutex mtx;
+	mutable std::mutex mtx;
 	std::condition_variable cv_push;
 	std::condition_variable cv_pop;
 	uint32_t n_pop_waiting{};
@@ -271,6 +271,7 @@ public:
 	}
 	uint32_t GetNWaitingOnPop() const
 	{
+		std::lock_guard lck(mtx);
 		return n_pop_waiting;
 	}
 	void Push(T&& elem)
